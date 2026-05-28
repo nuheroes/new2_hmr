@@ -1,0 +1,1370 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>한미르 AI 교육 프로그램 제안서</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  deck-stage:not(:defined) { visibility: hidden; }
+
+  /* Stage paddings */
+  .stage-pad {
+    padding: 88px 112px 132px 112px;
+    display: flex; flex-direction: column;
+    height: 100%;
+  }
+
+  /* Common slide head */
+  .head { display: flex; flex-direction: column; gap: 16px; margin-bottom: 28px; }
+  .head .row { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; }
+  .head .row .meta { font-size: 13px; font-weight: var(--fw-bold); letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); }
+  .head .lede { font-size: 20px; font-weight: var(--fw-light); color: var(--ink-2); max-width: 1300px; line-height: 1.5; margin-top: 10px; }
+  .head .rule-row { display: flex; align-items: center; gap: 16px; }
+  .head .rule-row .rule { flex: 1; }
+
+  /* ─── 01 · Title ─────────────────────────────────────── */
+  .title-stage {
+    display: grid; grid-template-rows: auto 1fr auto;
+    padding: 72px 96px;
+    height: 100%;
+  }
+  .title-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .title-top .meta {
+    font-size: 13px; font-weight: var(--fw-bold);
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--paper-3); text-align: right;
+    line-height: 1.7;
+  }
+  .title-top .meta strong { color: var(--orange); font-weight: var(--fw-black); }
+
+  .title-main {
+    display: flex; flex-direction: column;
+    gap: 32px; justify-content: center;
+    align-self: center;
+    width: 100%; max-width: 1700px;
+  }
+  .title-eyebrow {
+    color: var(--orange);
+    font-size: 22px; font-weight: var(--fw-black);
+    letter-spacing: 0.24em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 18px;
+  }
+  .title-eyebrow::before { content: ""; display: inline-block; width: 56px; height: 6px; background: var(--orange); }
+
+  .title-h1 {
+    font-size: 152px; font-weight: var(--fw-black);
+    letter-spacing: -0.045em; line-height: 0.96;
+    margin: 0; color: var(--white);
+  }
+  .title-h1 .em { color: var(--orange); }
+
+  .title-sub {
+    font-size: 26px; font-weight: var(--fw-regular);
+    color: var(--paper-2); line-height: 1.5;
+    max-width: 1200px; margin: 0;
+  }
+
+  .title-bottom {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 40px; padding-top: 28px;
+    border-top: 1px solid var(--hair-d);
+  }
+  .title-bottom .col { display: flex; flex-direction: column; gap: 6px; }
+  .title-bottom .label { font-size: 11px; font-weight: var(--fw-bold); letter-spacing: 0.22em; text-transform: uppercase; color: var(--paper-3); }
+  .title-bottom .val { font-size: 19px; font-weight: var(--fw-bold); color: var(--white); letter-spacing: -0.01em; }
+  .title-bottom .val.orange { color: var(--orange); font-weight: var(--fw-black); }
+
+  /* ─── 02 · TOC ───────────────────────────────────────── */
+  .toc-grid {
+    flex: 1; display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 80px; row-gap: 0;
+  }
+  .toc-item {
+    display: grid; grid-template-columns: 92px 1fr auto;
+    align-items: center; gap: 32px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  .toc-item.first { border-top: 2px solid var(--black); }
+  .toc-item .n { font-size: 38px; font-weight: var(--fw-black); color: var(--orange); letter-spacing: -0.04em; font-feature-settings: "tnum"; line-height: 1; }
+  .toc-item .t { font-size: 24px; font-weight: var(--fw-black); letter-spacing: -0.025em; color: var(--ink-1); line-height: 1.15; }
+  .toc-item .t small { display: block; font-size: 14px; font-weight: var(--fw-regular); color: var(--ink-3); margin-top: 6px; letter-spacing: 0; line-height: 1.4; }
+  .toc-item .p { font-size: 13px; color: var(--ink-3); font-weight: var(--fw-bold); letter-spacing: 0.12em; text-transform: uppercase; }
+
+  /* ─── 03 · 제안 배경 ───────────────────────────────── */
+  .ctx-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 72px; flex: 1; align-items: stretch; }
+  .ctx-left { display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+  .ctx-statement {
+    font-size: 58px; font-weight: var(--fw-black);
+    letter-spacing: -0.035em; line-height: 1.06;
+    margin: 0; text-wrap: pretty;
+  }
+  .ctx-statement .em { color: var(--orange); }
+  .ctx-body { font-size: 18px; font-weight: var(--fw-regular); color: var(--ink-2); line-height: 1.7; max-width: 700px; }
+
+  .ctx-right { display: flex; flex-direction: column; gap: 0; justify-content: center; }
+  .ctx-stat {
+    display: grid; grid-template-columns: 220px 1fr;
+    gap: 24px; align-items: center; padding: 28px 4px;
+    border-bottom: 1px solid var(--hair);
+  }
+  .ctx-stat:first-child { border-top: 2px solid var(--black); }
+  .ctx-stat .figure { font-size: 78px; font-weight: var(--fw-black); letter-spacing: -0.05em; color: var(--orange); line-height: 1; font-feature-settings: "tnum"; }
+  .ctx-stat .figure sup { font-size: 22px; font-weight: var(--fw-black); margin-left: 4px; vertical-align: top; padding-top: 10px; color: var(--ink-1); display: inline-block; }
+  .ctx-stat .figure .x { font-size: 26px; vertical-align: 14px; color: var(--ink-1); margin: 0 6px; }
+  .ctx-stat .desc { display: flex; flex-direction: column; gap: 6px; }
+  .ctx-stat .lbl { font-size: 11px; font-weight: var(--fw-bold); letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); }
+  .ctx-stat .text { font-size: 16px; color: var(--ink-1); font-weight: var(--fw-medium); line-height: 1.45; }
+
+  /* ─── 04 · 7팀 + 우선순위 ──────────────────────────── */
+  .needs-wrap { flex: 1; display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 56px; align-items: stretch; }
+  .needs-teams {
+    border-top: 2px solid var(--black);
+    border-bottom: 2px solid var(--black);
+  }
+  .needs-team {
+    display: grid; grid-template-columns: 40px 1fr 240px 80px;
+    gap: 24px; align-items: center;
+    padding: 20px 4px;
+    border-bottom: 1px solid var(--hair);
+  }
+  .needs-team:last-child { border-bottom: 0; }
+  .needs-team .n { font-size: 14px; font-weight: var(--fw-black); color: var(--orange); font-feature-settings: "tnum"; letter-spacing: 0.04em; }
+  .needs-team .t { font-size: 19px; font-weight: var(--fw-black); color: var(--ink-1); letter-spacing: -0.015em; }
+  .needs-team .tools { font-size: 12px; font-weight: var(--fw-bold); color: var(--ink-2); letter-spacing: 0.04em; line-height: 1.4; }
+  .needs-team .lvl { font-size: 11px; font-weight: var(--fw-black); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-1); text-align: right; padding: 6px 10px; border: 1.5px solid var(--ink-1); display: inline-block; justify-self: end; }
+  .needs-team .lvl.basic { color: var(--ink-3); border-color: var(--ink-3); }
+  .needs-team .lvl.deep  { color: var(--white); background: var(--orange); border-color: var(--orange); }
+
+  .needs-prio { display: flex; flex-direction: column; gap: 16px; justify-content: center; }
+  .needs-prio .ttl { font-size: 13px; font-weight: var(--fw-black); letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+  .prio-item {
+    display: grid; grid-template-columns: 56px 1fr;
+    gap: 18px; align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  .prio-item:first-of-type { border-top: 2px solid var(--black); }
+  .prio-item .rank { font-size: 32px; font-weight: var(--fw-black); color: var(--orange); letter-spacing: -0.04em; line-height: 1; font-feature-settings: "tnum"; }
+  .prio-item .nm { font-size: 19px; font-weight: var(--fw-bold); color: var(--ink-1); letter-spacing: -0.015em; }
+  .prio-item .nm small { display: block; font-size: 12px; font-weight: var(--fw-regular); color: var(--ink-3); letter-spacing: 0.02em; margin-top: 4px; }
+
+  /* ─── 05 · 2-option comparison ─────────────────────── */
+  .cmp-wrap { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .cmp-card {
+    padding: 44px 40px;
+    display: flex; flex-direction: column;
+    border: 2px solid var(--black);
+    position: relative;
+  }
+  .cmp-card.dark { background: var(--black); color: var(--white); }
+  .cmp-card .badge {
+    position: absolute; top: -1px; left: -1px;
+    background: var(--orange); color: var(--white);
+    font-size: 12px; font-weight: var(--fw-black);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 8px 16px;
+  }
+  .cmp-card .opt {
+    font-size: 14px; font-weight: var(--fw-bold);
+    letter-spacing: 0.20em; text-transform: uppercase;
+    color: var(--orange); margin-top: 14px; margin-bottom: 12px;
+  }
+  .cmp-card h3 {
+    font-size: 44px; font-weight: var(--fw-black);
+    letter-spacing: -0.035em; line-height: 1.05;
+    margin: 0 0 24px;
+  }
+  .cmp-card h3 .em { color: var(--orange); }
+  .cmp-card .row-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; padding: 24px 0;
+    border-top: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    margin-bottom: 28px;
+  }
+  .cmp-card.dark .row-stats { border-color: var(--hair-d); }
+  .cmp-card:not(.dark) .row-stats { border-color: var(--hair); }
+  .cmp-card .stat .v { font-size: 36px; font-weight: var(--fw-black); color: var(--orange); letter-spacing: -0.035em; line-height: 1; font-feature-settings: "tnum"; }
+  .cmp-card .stat .k { font-size: 12px; font-weight: var(--fw-bold); letter-spacing: 0.16em; text-transform: uppercase; margin-top: 6px; opacity: 0.6; }
+
+  .cmp-card .pts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .cmp-card .pts li { font-size: 16px; font-weight: var(--fw-medium); line-height: 1.5; padding-left: 20px; position: relative; list-style: none; }
+  .cmp-card .pts li::before { content: ""; position: absolute; left: 0; top: 11px; width: 10px; height: 2px; background: var(--orange); }
+  .cmp-card .fit {
+    margin-top: auto;
+    font-size: 14px; font-weight: var(--fw-bold);
+    letter-spacing: 0.04em; line-height: 1.5;
+    padding: 18px 20px;
+    background: var(--orange); color: var(--white);
+  }
+  .cmp-card.dark .fit { background: var(--orange); color: var(--white); }
+
+  /* ─── 06 · 제안 1 overview ─────────────────────────── */
+  /* (uses cur-grid style)*/
+
+  /* ─── 07 · 제안 1 detail (7-team table) ───────────── */
+  .det-tbl { flex: 1; display: flex; flex-direction: column; }
+  .det-head {
+    display: grid;
+    grid-template-columns: 50px 1.1fr 1.4fr 1fr 130px 90px;
+    gap: 20px; padding: 14px 8px;
+    border-bottom: 2px solid var(--black);
+    font-size: 11px; font-weight: var(--fw-bold);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .det-row {
+    display: grid;
+    grid-template-columns: 50px 1.1fr 1.4fr 1fr 130px 90px;
+    gap: 20px; padding: 16px 8px;
+    border-bottom: 1px solid var(--hair);
+    align-items: center;
+    min-height: 78px;
+  }
+  .det-row:last-child { border-bottom: 2px solid var(--black); }
+  .det-row .n { font-size: 18px; font-weight: var(--fw-black); color: var(--orange); font-feature-settings: "tnum"; }
+  .det-row .t { font-size: 17px; font-weight: var(--fw-black); color: var(--ink-1); letter-spacing: -0.015em; line-height: 1.25; }
+  .det-row .body { font-size: 13px; font-weight: var(--fw-regular); color: var(--ink-2); line-height: 1.55; }
+  .det-row .tools { font-size: 12px; font-weight: var(--fw-bold); color: var(--ink-1); letter-spacing: 0.02em; line-height: 1.4; }
+  .det-row .lvl {
+    font-size: 11px; font-weight: var(--fw-black);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    text-align: center; padding: 5px 10px;
+    border: 1.5px solid var(--ink-1); color: var(--ink-1);
+    justify-self: start;
+  }
+  .det-row .lvl.basic { color: var(--ink-3); border-color: var(--ink-3); }
+  .det-row .lvl.deep  { color: var(--white); background: var(--orange); border-color: var(--orange); }
+  .det-row .hrs { font-size: 16px; font-weight: var(--fw-black); color: var(--ink-1); text-align: right; font-feature-settings: "tnum"; }
+
+  .det-foot {
+    display: grid;
+    grid-template-columns: 50px 1.1fr 1.4fr 1fr 130px 90px;
+    gap: 20px; padding: 18px 8px;
+    border-top: 3px solid var(--orange);
+    margin-top: 4px;
+  }
+  .det-foot .lbl { font-size: 14px; font-weight: var(--fw-black); color: var(--ink-1); letter-spacing: -0.01em; grid-column: 2 / 5; }
+  .det-foot .tot { font-size: 22px; font-weight: var(--fw-black); color: var(--orange); text-align: right; font-feature-settings: "tnum"; grid-column: 5 / 7; }
+
+  /* ─── 08 · 제안 2 overview reuses cmp visual ──────── */
+
+  /* ─── 09 · 제안 2 detail (4 tracks × 3 sessions) ─── */
+  .trk-grid {
+    flex: 1; display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; border-top: 2px solid var(--black); border-bottom: 2px solid var(--black);
+  }
+  .trk-col { display: flex; flex-direction: column; border-right: 1px solid var(--hair); }
+  .trk-col:last-child { border-right: 0; }
+  .trk-head { padding: 24px 22px 16px; border-bottom: 1px solid var(--hair); }
+  .trk-head .nm { font-size: 11px; font-weight: var(--fw-black); letter-spacing: 0.18em; color: var(--orange); text-transform: uppercase; }
+  .trk-head h4 { font-size: 20px; font-weight: var(--fw-black); margin: 6px 0 8px; letter-spacing: -0.025em; line-height: 1.18; }
+  .trk-head .who { font-size: 11px; font-weight: var(--fw-bold); color: var(--ink-2); letter-spacing: 0.04em; line-height: 1.4; }
+  .trk-head .tools { font-size: 11px; font-weight: var(--fw-bold); color: var(--ink-3); letter-spacing: 0.04em; margin-top: 8px; line-height: 1.4; }
+
+  .trk-sess { padding: 14px 22px; border-bottom: 1px solid var(--hair); flex: 1; }
+  .trk-sess:last-child { border-bottom: 0; }
+  .trk-sess .ses { font-size: 10px; font-weight: var(--fw-black); letter-spacing: 0.16em; color: var(--orange); text-transform: uppercase; margin-bottom: 6px; }
+  .trk-sess ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
+  .trk-sess ul li { font-size: 12px; font-weight: var(--fw-regular); color: var(--ink-1); line-height: 1.45; padding-left: 10px; position: relative; }
+  .trk-sess ul li::before { content: ""; position: absolute; left: 0; top: 8px; width: 5px; height: 2px; background: var(--orange); }
+
+  /* ─── 10 · 추천 ──────────────────────────────────── */
+  .rec-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; flex: 1; align-items: stretch; }
+  .rec-left { display: flex; flex-direction: column; justify-content: center; gap: 32px; }
+  .rec-left .big {
+    font-size: 56px; font-weight: var(--fw-black);
+    letter-spacing: -0.035em; line-height: 1.06;
+    margin: 0;
+  }
+  .rec-left .big .em { color: var(--orange); }
+  .rec-left p { font-size: 17px; font-weight: var(--fw-regular); color: var(--ink-2); line-height: 1.7; max-width: 620px; margin: 0; }
+
+  .rec-right {
+    background: var(--black); color: var(--white);
+    padding: 48px 44px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .rec-right .badge {
+    font-size: 12px; font-weight: var(--fw-black);
+    letter-spacing: 0.20em; text-transform: uppercase;
+    color: var(--orange);
+    display: inline-flex; align-items: center; gap: 14px;
+  }
+  .rec-right .badge::before { content: ""; width: 40px; height: 5px; background: var(--orange); }
+  .rec-right h3 { font-size: 36px; font-weight: var(--fw-black); letter-spacing: -0.03em; margin: 0; line-height: 1.1; }
+  .rec-right h3 .em { color: var(--orange); }
+  .rec-right .why { display: flex; flex-direction: column; gap: 10px; padding-top: 20px; border-top: 1px solid var(--hair-d); }
+  .rec-right .why li { font-size: 14px; font-weight: var(--fw-regular); color: var(--paper-2); line-height: 1.5; padding-left: 18px; position: relative; list-style: none; }
+  .rec-right .why li::before { content: ""; position: absolute; left: 0; top: 10px; width: 10px; height: 2px; background: var(--orange); }
+
+  /* ─── 11 · 운영 + 강사 ────────────────────────────── */
+  .ops-grid { flex: 1; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: stretch; }
+  .ops-cal { display: flex; flex-direction: column; }
+  .cal-tbl {
+    display: grid; grid-template-columns: 80px repeat(6, 1fr);
+    border-top: 2px solid var(--black);
+    border-bottom: 2px solid var(--black);
+  }
+  .cal-tbl .ch {
+    padding: 14px 8px;
+    font-size: 11px; font-weight: var(--fw-bold);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--hair);
+  }
+  .cal-tbl .rh { padding: 18px 8px; font-size: 13px; font-weight: var(--fw-black); color: var(--ink-1); border-bottom: 1px solid var(--hair); letter-spacing: 0.04em; }
+  .cal-tbl .cell {
+    padding: 18px 8px;
+    font-size: 12px; font-weight: var(--fw-medium);
+    color: var(--ink-1); line-height: 1.35;
+    border-bottom: 1px solid var(--hair);
+    border-left: 1px solid var(--hair);
+  }
+  .cal-tbl .cell .tg {
+    display: inline-block;
+    background: var(--orange); color: var(--white);
+    font-size: 10px; font-weight: var(--fw-black);
+    letter-spacing: 0.10em; padding: 3px 6px;
+    margin-bottom: 5px;
+  }
+  .cal-tbl .cell .tg.alt { background: transparent; color: var(--ink-1); border: 1.5px solid var(--ink-1); padding: 2px 6px; }
+  .cal-tbl .last { border-bottom: 0; }
+
+  .ops-inst {
+    display: flex; flex-direction: column; gap: 0;
+    border-top: 2px solid var(--black);
+    border-bottom: 2px solid var(--black);
+  }
+  .inst-row {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 16px; padding: 18px 4px;
+    border-bottom: 1px solid var(--hair);
+    align-items: center;
+  }
+  .inst-row:last-child { border-bottom: 0; }
+  .inst-row .nm { font-size: 17px; font-weight: var(--fw-black); color: var(--ink-1); letter-spacing: -0.015em; }
+  .inst-row .nm small { display: block; font-size: 12px; font-weight: var(--fw-regular); color: var(--ink-3); margin-top: 4px; letter-spacing: 0.02em; }
+  .inst-row .role { font-size: 11px; font-weight: var(--fw-black); letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); padding: 6px 10px; border: 1.5px solid var(--orange); }
+
+  /* ─── 12 · 비용 ──────────────────────────────────── */
+  .cost-wrap { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; flex: 1; align-items: stretch; }
+  .cost-summary {
+    background: var(--black); color: var(--white);
+    padding: 44px 40px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .cost-summary .lbl { font-size: 12px; font-weight: var(--fw-black); color: var(--orange); letter-spacing: 0.20em; text-transform: uppercase; }
+  .cost-total { display: flex; flex-direction: column; gap: 6px; margin-top: 24px; }
+  .cost-total .amt { font-size: 96px; font-weight: var(--fw-black); letter-spacing: -0.05em; line-height: 0.96; color: var(--white); }
+  .cost-total .amt .unit { font-size: 32px; font-weight: var(--fw-black); color: var(--orange); margin-left: 10px; letter-spacing: -0.02em; }
+  .cost-total .vat { font-size: 13px; color: var(--paper-3); font-weight: var(--fw-regular); margin-top: 6px; letter-spacing: 0.04em; }
+
+  .gov-box {
+    margin-top: 24px; padding: 18px 20px;
+    border: 1.5px solid var(--orange);
+    background: rgba(255,71,19,0.10);
+  }
+  .gov-box .h { font-size: 11px; font-weight: var(--fw-black); letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 6px; }
+  .gov-box .t { font-size: 14px; font-weight: var(--fw-bold); color: var(--white); line-height: 1.45; }
+
+  .cost-note {
+    margin-top: 22px; padding-top: 20px;
+    border-top: 1px solid var(--hair-d);
+    display: flex; flex-direction: column; gap: 8px;
+    font-size: 13px; color: var(--paper-2);
+    font-weight: var(--fw-regular); line-height: 1.55;
+  }
+  .cost-note span::before { content: "—  "; color: var(--orange); font-weight: var(--fw-black); }
+
+  .cost-table { display: flex; flex-direction: column; }
+  .cost-row {
+    display: grid;
+    grid-template-columns: 50px 1.5fr 1.1fr 0.7fr 0.95fr;
+    gap: 20px; padding: 16px 6px; align-items: center;
+    border-bottom: 1px solid var(--hair);
+  }
+  .cost-row.head { font-size: 11px; font-weight: var(--fw-bold); letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); padding: 11px 6px; border-bottom: 2px solid var(--black); }
+  .cost-row .n { font-size: 16px; font-weight: var(--fw-black); color: var(--orange); font-feature-settings: "tnum"; }
+  .cost-row .t { font-size: 15px; font-weight: var(--fw-black); color: var(--ink-1); letter-spacing: -0.01em; }
+  .cost-row .t small { display: block; font-size: 12px; font-weight: var(--fw-regular); color: var(--ink-3); margin-top: 2px; letter-spacing: 0; }
+  .cost-row .desc { font-size: 12px; color: var(--ink-2); font-weight: var(--fw-regular); line-height: 1.45; }
+  .cost-row .qty { font-size: 13px; color: var(--ink-2); font-weight: var(--fw-regular); text-align: right; }
+  .cost-row .amt { font-size: 15px; font-weight: var(--fw-black); color: var(--ink-1); text-align: right; font-feature-settings: "tnum"; letter-spacing: -0.01em; }
+  .cost-row.total { padding: 18px 6px; border-bottom: none; border-top: 3px solid var(--orange); margin-top: 2px; }
+  .cost-row.total .t { color: var(--ink-1); font-size: 18px; }
+  .cost-row.total .amt { color: var(--orange); font-size: 22px; }
+
+  /* ─── 13 · End ────────────────────────────────── */
+  .end-stage { display: flex; padding: 72px 96px; height: 100%; flex-direction: column; }
+  .end-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .end-thanks {
+    color: var(--orange); font-size: 22px; font-weight: var(--fw-black);
+    letter-spacing: 0.30em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 18px;
+  }
+  .end-thanks::before { content: ""; width: 56px; height: 6px; background: var(--orange); }
+  .end-mid { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 32px; }
+  .end-h1 { font-size: 108px; font-weight: var(--fw-black); letter-spacing: -0.04em; line-height: 1.02; margin: 0; color: var(--white); max-width: 1500px; }
+  .end-h1 .em { color: var(--orange); }
+  .end-sub { font-size: 22px; color: var(--paper-2); font-weight: var(--fw-regular); line-height: 1.6; max-width: 1100px; margin: 0; }
+  .end-bottom { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; padding-top: 28px; border-top: 1px solid var(--hair-d); }
+  .end-bottom .col { display: flex; flex-direction: column; gap: 6px; }
+  .end-bottom .label { font-size: 11px; font-weight: var(--fw-bold); letter-spacing: 0.22em; text-transform: uppercase; color: var(--paper-3); }
+  .end-bottom .val { font-size: 19px; font-weight: var(--fw-bold); color: var(--white); letter-spacing: -0.01em; }
+  .end-bottom .val.orange { color: var(--orange); font-weight: var(--fw-black); }
+
+  /* Tweaks panel mount */
+  #tweaks-root { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+  #tweaks-root > * { pointer-events: auto; }
+
+</style>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- ═════════════════════ 01 · Title ═════════════════════ -->
+  <section class="slide dark" data-label="Title">
+    <div class="stage title-stage">
+      <div class="title-top">
+        <div class="lockup">
+          <span class="ko">(주) 한미르</span>
+          <span class="name"><span class="h">h</span>anmir</span>
+        </div>
+        <div class="meta">
+          AI Education Program Proposal<br>
+          <strong>2026 · v 1.0</strong>
+        </div>
+      </div>
+
+      <div class="title-main">
+        <div class="title-eyebrow">한미르 AI 교육 프로그램 제안서</div>
+        <h1 class="title-h1">
+          툴이 아니라,<br>
+          <span class="em">현장에서 일하는 방식.</span>
+        </h1>
+        <p class="title-sub">
+          생성형 AI를 카탈로그·영상·기획·개발 현업에 내재화하기 위한<br>
+          한미르 맞춤형 교육 프로그램 ― 2가지 안으로 제안드립니다.
+        </p>
+      </div>
+
+      <div class="title-bottom">
+        <div class="col">
+          <span class="label">Prepared for</span>
+          <span class="val">(주)한미르 · 김수진 본부장</span>
+        </div>
+        <div class="col">
+          <span class="label">Scope</span>
+          <span class="val">24~28H · 6일 운영</span>
+        </div>
+        <div class="col">
+          <span class="label">Tracks</span>
+          <span class="val orange">2 options · 7팀</span>
+        </div>
+        <div class="col">
+          <span class="label">Submission</span>
+          <span class="val">2026. 05 · KR</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════════ 02 · TOC ═════════════════════ -->
+  <section class="slide" data-label="목차">
+    <div class="stage stage-pad">
+      <div class="head">
+        <div class="eyebrow">Contents</div>
+        <div class="row">
+          <h2 class="slide-title">제안서 목차</h2>
+          <span class="meta">11 sections · 13 slides</span>
+        </div>
+      </div>
+
+      <div class="toc-grid">
+        <div class="toc-item first">
+          <span class="n">01</span>
+          <span class="t">제안 배경<small>한미르 현황 · AI 도입 단계 진단</small></span>
+          <span class="p">p. 03</span>
+        </div>
+        <div class="toc-item first">
+          <span class="n">06</span>
+          <span class="t">제안 2 · 툴별 트랙<small>4트랙 × 6H · 통합 편성</small></span>
+          <span class="p">p. 08~09</span>
+        </div>
+        <div class="toc-item">
+          <span class="n">02</span>
+          <span class="t">교육 니즈<small>7개 팀의 요청 툴 · 우선순위</small></span>
+          <span class="p">p. 04</span>
+        </div>
+        <div class="toc-item">
+          <span class="n">07</span>
+          <span class="t">추천 의견<small>한미르에 더 적합한 안</small></span>
+          <span class="p">p. 10</span>
+        </div>
+        <div class="toc-item">
+          <span class="n">03</span>
+          <span class="t">두 가지 제안 한눈에<small>팀별 vs 툴별 · 핵심 비교</small></span>
+          <span class="p">p. 05</span>
+        </div>
+        <div class="toc-item">
+          <span class="n">08</span>
+          <span class="t">운영 방식 · 강사진<small>6일 운영 · 분야별 전문강사</small></span>
+          <span class="p">p. 11</span>
+        </div>
+        <div class="toc-item">
+          <span class="n">04</span>
+          <span class="t">제안 1 · 팀별 맞춤<small>7팀 × 4H · 28H · 소그룹 밀착</small></span>
+          <span class="p">p. 06~07</span>
+        </div>
+        <div class="toc-item">
+          <span class="n">09</span>
+          <span class="t">투자 비용 · 정부지원금<small>예산 · 분담 구조 · 다음 단계</small></span>
+          <span class="p">p. 12</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-logo"><span class="pre">(주)</span><span class="name"><span class="h">h</span>anmir</span></div>
+    <div class="foot-num">02 / 13</div>
+  </section>
+
+  <!-- ═════════════════════ 03 · 제안 배경 ═════════════════════ -->
+  <section class="slide" data-label="제안 배경">
+    <div class="stage stage-pad">
+      <div class="head">
+        <div class="row">
+          <div class="eyebrow">Section 01 · 제안 배경</div>
+          <span class="meta">Hanmir · web agency · 10–14 PAX</span>
+        </div>
+        <div class="row">
+          <h2 class="slide-title">왜 지금, 한미르에 AI 교육인가</h2>
+        </div>
+      </div>
+      <div class="rule" style="margin-bottom: 48px;"></div>
+
+      <div class="ctx-grid">
+        <div class="ctx-left">
+          <h3 class="ctx-statement">
+            툴은 이미 들어왔습니다.<br>
+            남은 과제는 <span class="em">조직의 문법으로<br>다시 쓰는 일.</span>
+          </h3>
+          <p class="ctx-body">
+            한미르 임직원은 ChatGPT · Gemini · Midjourney · 나노바나를 이미 개별 사용 중입니다.
+            그러나 조직 차원의 프로세스·산출물 표준·툴 간 연결은 아직 없습니다.
+            구청 등에서 받은 단체 교육은 이론 중심이라 현업 적용으로 이어지지 않았습니다.
+            본 제안은 '강사 밀착 실습 + 사후 역량 내재화'를 핵심 축으로 설계되었습니다.
+          </p>
+        </div>
+
+        <div class="ctx-right">
+          <div class="ctx-stat">
+            <div class="figure">10<span class="x">–</span>14</div>
+            <div class="desc">
+              <span class="lbl">Headcount</span>
+              <span class="text">7개 팀 · 디자인 · 퍼블 · 기획 ·<br>영상 · 카탈로그 · SNS · 개발</span>
+            </div>
+          </div>
+          <div class="ctx-stat">
+            <div class="figure">24<sup>H</sup></div>
+            <div class="desc">
+              <span class="lbl">Training time</span>
+              <span class="text">하루 4H · 오후 운영 · 총 6일<br>(안에 따라 28H 까지 확장)</span>
+            </div>
+          </div>
+          <div class="ctx-stat">
+            <div class="figure">04</div>
+            <div class="desc">
+              <span class="lbl">Priority order</span>
+              <span class="text">영상·숏폼 → 이미지 →<br>기획 → 개발</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot-logo"><span class="pre">(주)</span><span class="name"><span class="h">h</span>anmir</span></div>
+    <div class="foot-num">03 / 13</div>
+  </section>
+
+  <!-- ═════════════════════ 04 · 교육 니즈 ═════════════════════ -->
+  <section class="slide" data-label="교육 니즈">
+    <div class="stage stage-pad">
+      <div class="head">
+        <div class="row">
+          <div class="eyebrow">Section 02 · 교육 니즈</div>
+          <span class="meta">7 teams · requested tools</span>
+        </div>
+        <div class="row">
+          <h2 class="slide-title">7개 팀이 가져온 요청</h2>
+        </div>
+        <p class="lede">각 팀이 요청한 툴과 학습 수준 ― 그리고 한미르가 정한 우선순위.</p>
+      </div>
+
+      <div class="needs-wrap">
+        <div class="needs-teams">
+          <div class="needs-team">
+            <span class="n">01</span>
+            <span class="t">웹 개발팀</span>
+            <span class="tools">Claude Code</span>
+            <span class="lvl deep">심화</span>
+          </div>
+          <div class="needs-team">
+            <span class="n">02</span>
+            <span class="t">웹 디자인 + 웹 퍼블 (합반)</span>
+            <span class="tools">Figma MCP · Claude</span>
+            <span class="lvl">기초~활용</span>
+          </div>
+          <div class="needs-team">
+            <span class="n">03</span>
+            <span class="t">기획팀</span>
+            <span class="tools">Figma · Claude / ChatGPT</span>
+            <span class="lvl">활용</span>
+          </div>
+          <div class="needs-team">
+            <span class="n">04</span>
+            <span class="t">동영상팀 — 숏폼</span>
+            <span class="tools">Kling · Midjourney</span>
+            <span class="lvl basic">기초</span>
+          </div>
+          <div class="needs-team">
+            <span class="n">05</span>
+            <span class="t">동영상팀 — 홍보영상</span>
+            <span class="tools">Claude · Kling 3.0</span>
+            <span class="lvl basic">기초</span>
+          </div>
+          <div class="needs-team">
+            <span class="n">06</span>
+            <span class="t">카탈로그팀</span>
+            <span class="tools">Midjourney · 이미지 생성 AI</span>
+            <span class="lvl basic">기초</span>
+          </div>
+          <div class="needs-team">
+            <span class="n">07</span>
+            <span class="t">SNS 기획팀</span>
+            <span class="tools">Kling · Midjourney</span>
+            <span class="lvl">활용</span>
+          </div>
+        </div>
+
+        <div class="needs-prio">
+          <div class="ttl">한미르가 정한 우선순위</div>
+          <div class="prio-item"><span class="rank">01</span><span class="nm">동영상 · 숏폼<small>제작 효율 · 일관성</small></span></div>
+          <div class="prio-item"><span class="rank">02</span><span class="nm">이미지 제작<small>제품·브랜드 정체성</small></span></div>
+          <div class="prio-item"><span class="rank">03</span><span class="nm">기획<small>웹 기획 · SNS 기획</small></span></div>
+          <div class="prio-item"><span class="rank">04</span><span class="nm">웹 개발<small>Claude Code 심화</small></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="foot-logo"><span class="pre">(주)</span><span class="name"><span class="h">h</span>anmir</span></div>
+    <div class="foot-num">04 / 13</div>
+  </section>
+
+  <!-- ═════════════════════ 05 · 두 가지 제안 한눈에 ═════════════════════ -->
+  <section class="slide" data-label="두 가지 제안">
+    <div class="stage stage-pad">
+      <div class="head">
+        <div class="row">
+          <div class="eyebrow">Section 03 · 두 가지 제안</div>
+          <span class="meta">Side by side</span>
+        </div>
+        <div class="row">
+          <h2 class="slide-title">팀별 맞춤 vs 툴별 트랙</h2>
+        </div>
+        <p class="lede">한미르의 운영 여건에 따라 선택할 수 있도록 두 가지 안으로 설계했습니다.</p>
+      </div>
+
+      <div class="cmp-wrap">
+        <div class="cmp-card">
+          <div class="badge">Option 1</div>
+          <div class="opt">팀별 맞춤 · 소그룹 밀착</div>
+          <h3>한 팀, 한 강사,<br><span class="em">한 산출물.</span></h3>
+          <div class="row-stats">
+            <div class="stat"><div class="v">28<small style="font-size:18px;">H</small></div><div class="k">total</div></div>
+            <div class="stat"><div class="v">7</div><div class="k">teams</div></div>
+            <div class="stat"><div class="v">4<small style="font-size:18px;">H</small></div><div class="k">per team</div></div>
+          </div>
+          <ul class="pts">
+            <li>팀당 4–5명 소그룹 · 분야별 전문강사 다중 배치</li>
+            <li>요청 툴 그대로 · 팀의 실제 산출물 위에서 실습</li>
+            <li>선택 수강 가능 · 우선순위 팀 먼저 진행</li>
+            <li>강의 30% · 실습 50% · 코칭 20%</li>
+          </ul>
+          <div class="fit">현업 산출물·일정 충돌이 큰 팀들이 모여 있을 때 적합</div>
+        </div>
+
+        <div class="cmp-card dark">
+          <div class="badge">Option 2</div>
+          <div class="opt">툴별 트랙 · 통합 편성</div>
+          <h3>비슷한 일은<br><span class="em">함께 배웁니다.</span></h3>
+          <div class="row-stats">
+            <div class="stat"><div class="v">24<small style="font-size:18px;">H</small></div><div class="k">total</div></div>
+            <div class="stat"><div class="v">4</div><div class="k">tracks</div></div>
+            <div class="stat"><div class="v">6<small style="font-size:18px;">H</small></div><div class="k">per track</div></div>
+          </div>
+          <ul class="pts">
+            <li>요청 툴이 겹치는 팀들을 1트랙으로 통합 ― 학습 시너지</li>
+            <li>트랙당 3교시 구성 ― 기초 → 응용 → 워크숍</li>
+            <li>전사 인원 동시 운영 · 비용 효율 우수</li>
+            <li>강의 30% · 실습 50% · 코칭 20%</li>
+          </ul>
+          <div class="fit">전사 단일 일정으로 효율적으로 굴려야 할 때 적합 — 추천</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot-logo"><span class="pre">(주)</span><span class="name"><span class="h">h</span>anmir</span></div>
+    <div class="foot-num">05 / 13</div>
+  </section>
+
+  <!-- ═════════════════════ 06 · 제안 1 overview ═════════════════════ -->
+  <section class="slide" data-label="제안 1 개요">
+    <div class="stage stage-pad">
+      <div class="head">
+        <div class="row">
+          <div class="eyebrow">Section 04 · 제안 1 · 팀별 맞춤</div>
+          <span class="meta">Option 1 · Overview</span>
+        </div>
+        <div class="row">
+          <h2 class="slide-title">팀별 맞춤 · 소그룹 밀착 (28H)</h2>
+        </div>
+        <p class="lede">7개 팀에게 각각 4시간씩, 팀 내부의 산출물 위에서 실습하는 방식.</p>
+      </div>
+
+      <div class="ov-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 0; flex: 1; border-top: 2px solid var(--black); border-bottom: 2px solid var(--black);">
+        <div class="ov-card">
+          <div class="top">
+            <div class="n">01</div>
+            <div class="tag">Format</div>
+          </div>
+          <h3>팀당 4시간 ·<br>소그룹 밀착</h3>
+          <p class="lead">팀당 4–5명. 강사와의 거리가 짧고, 질문이 가벼워집니다. 산출물을 강사와 함께 만듭니다.</p>
+          <ul class="ov-list">
+            <li>4시간 = 강의 1h · 실습 2h · 코칭 1h</li>
+            <li>팀 내 실제 과업을 학습 과제로</li>
+            <li>학습 종료 시 산출물 1개 이상</li>
+          </ul>
+        </div>
+
+        <div class="ov-card">
+          <div class="top">
+            <div class="n">02</div>
+            <div class="tag">Coverage</div>
+          </div>
+          <h3>7개 팀 전원 ·<br>총 28시간</h3>
+          <p class="lead">개발 · 디자인/퍼블 · 기획 · 영상(숏폼) · 영상(홍보) · 카탈로그 · SNS 기획 전 팀 포함.</p>
+          <ul class="ov-list">
+            <li>요청 툴 그대로 수용</li>
+            <li>학습 수준 차이를 팀 단위로 흡수</li>
+            <li>일정 조정이 유연 (팀별 분산 가능)</li>
+          </ul>
+        </div>
+
+        <div class="ov-card">
+          <div class="top">
+            <div class="n">03</div>
+            <div class="tag orange">Strength</div>
+          </div>
+          <h3>맞춤 깊이가<br>가장 높은 안</h3>
+          <p class="lead">"우리 팀 일"로 학습이 시작/종료되므로, 현업 적용까지의 거리가 가장 짧습니다.</p>
+          <ul class="ov-list">
+            <li>분야별 전문강사 다중 배치</li>
+            <li>팀별 R&R, 산출물 형식 반영</li>
+            <li>강사 풀: 김유정 · 김송아 외 4명</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-logo"><span class="pre">(주)</span><span class="name"><span class="h">h</span>anmir</span></div>
+    <div class="foot-num">06 / 13</div>
+  </section>
+
+  <!-- ═════════════════════ 07 · 제안 1 detail (7-team table) ═════════════════════ -->
+  <section class="slide" data-label="제안 1 커리큘럼">
+    <div class="stage stage-pad">
+      <div class="head">
+        <div class="row">
+          <div class="eyebrow">Section 04 · 제안 1 · 커리큘럼</div>
+          <span class="meta">7 teams · 28 hours</span>
+        </div>
+        <div class="row">
+          <h2 class="slide-title">팀별 커리큘럼 상세</h2>
+        </div>
+      </div>
+
+      <div class="det-tbl">
+        <div class="det-head">
+          <span>No.</span>
+          <span>팀</span>
+          <span>핵심 교육 내용</span>
+          <span>요청 툴</span>
+          <span>학습 수준</span>
+          <span style="text-align:right;">시간</span>
+        </div>
+
+        <div class="det-row">
+          <span class="n">01</span>
+          <span class="t">웹 개발팀</span>
+          <span class="body">멀티 에이전트 패턴(병렬·파이프라인·스페셜리스트) · 훅(Hook) 활용 · Orchestrator 서브에이전트 · Context7 MCP</span>
+          <span class="tools">Claude Code</span>
+          <span class="lvl deep">심화</span>
+          <span class="hrs">4 H</span>
+        </div>
+
+        <div class="det-row">
+          <span class="n">02</span>
+          <span class="t">웹 디자인 + 웹 퍼블</span>
+          <span class="body">Figma–Claude 연동 · 레이어/네이밍 규칙 · 오토레이아웃 · 상세페이지 비주얼 · 단일 이미지 → GIF·숏폼</span>
+          <span class="tools">Figma MCP · Claude</span>
+          <span class="lvl">기초~활용</span>
+          <span class="hrs">4 H</span>
+        </div>
+
+        <div class="det-row">
+          <span class="n">03</span>
+          <span class="t">기획팀</span>
+          <span class="body">기획서 작성 시간 단축 · AI UI 제작 · 타겟 유저 분석 → IA 설계 · AI 피드백 기반 UI 개선</span>
+          <span class="tools">Figma · Claude · ChatGPT</span>
+          <span class="lvl">활용</span>
+          <span class="hrs">4 H</span>
+        </div>
+
+        <div class="det-row">
+          <span class="n">04</span>
+          <span class="t">동영상팀 · 숏폼</span>
+          <span class="body">After Effects 후보정 · 이미지→영상 확장 · 일관성 유지 · 조명·카메라·질감·움직임 프롬프트</span>
+          <span class="tools">Kling · Midjourney</span>
+          <span class="lvl basic">기초</span>
+          <span class="hrs">4 H</span>
+        </div>
+
+        <div class="det-row">
+          <span class="n">05</span>
+          <span class="t">동영상팀 · 홍보영상</span>
+          <span class="body">Seedance 2.0 vs Kling 3.0 · Claude Connectors · PPT 구성안 스크립트 · Adobe(Ae·Pr)/Blender 워크플로우</span>
+          <span class="tools">Claude · Kling 3.0</span>
+          <span class="lvl basic">기초</span>
+          <span class="hrs">4 H</span>
+        </div>
+
+        <div class="det-row">
+          <span class="n">06</span>
+          <span class="t">카탈로그팀</span>
+          <span class="body">이미지 리뉴얼·신규 제작 · 전체 페이지 레이아웃 · 1장 → 다양한 구도/배경/합성 · 저화질 보정 · 오탈자 검수</span>
+          <span class="tools">이미지 생성 AI (Midjourney · Firefly)</span>
+          <span class="lvl basic">기초</span>
+          <span class="hrs">4 H</span>
+        </div>
+
+        <div class="det-row">
+          <span class="n">07</span>
+          <span class="t">SNS 기획팀</span>
+          <span class="body">제품사진 → 배경 합성·GIF · 프롬프트 엔지니어링 · --sref/--cref 일관성 · CTR 예측 · 콘텐츠 캘린더 자동화</span>
+          <span class="tools">Kling · Midjourney</span>
+          <span class="lvl">활용</span>
+          <span class="hrs">4 H</span>
+        </div>
+
+        <div class="det-foot">
+          <span class="lbl">총 교육 시간 · 7개 팀</span>
+          <span class="tot">28 H</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-logo"><span class="pre">(주)</span><span class="name"><span class="h">h</span>anmir</span></div>
+    <div class="foot-num">07 / 13</div>
+  </section>
+
+  <!-- ═════════════════════ 08 · 제안 2 overview ═════════════════════ -->
+  <section class="slide" data-label="제안 2 개요">
+    <div class="stage stage-pad">
+      <div class="head">
+        <div class="row">
+          <div class="eyebrow">Section 05 · 제안 2 · 툴별 트랙</div>
+          <span class="meta">Option 2 · Overview</span>
+        </div>
+        <div class="row">
+          <h2 class="slide-title">툴별 트랙 · 통합 편성 (24H)</h2>
+        </div>
+        <p class="lede">요청 툴이 겹치는 팀을 묶어, 1트랙 6시간 · 3교시 구성으로 운영합니다.</p>
+      </div>
+
+      <div class="trk-grid">
+        <div class="trk-col">
+          <div class="trk-head">
+            <div class="nm">Track 01</div>
+            <h4>Claude × Figma 활용</h4>
+            <div class="who">웹 디자인 · 웹 퍼블 · 기획팀</div>
+            <div class="tools">Figma MCP · Claude<br>+ 구글 Stitch · readdy.ai</div>
+          </div>
+          <div class="trk-sess" style="background:rgba(255,71,19,0.06); flex:0; padding:18px 22px;">
+            <div style="font-size:32px; font-weight:900; color:var(--orange); letter-spacing:-0.04em; line-height:1;">6<span style="font-size:14px; margin-left:4px;">H</span></div>
+            <div style="font-size:11px; font-weight:700; color:var(--ink-3); letter-spacing:0.14em; text-transform:uppercase; margin-top:8px;">3교시 · 통합</div>
+          </div>
+        </div>
+
+        <div class="trk-col">
+          <div class="trk-head">
+            <div class="nm">Track 02</div>
+            <h4>동영상 제작 — 숏폼 + 홍보영상</h4>
+            <div class="who">동영상팀 (숏폼) · 동영상팀 (홍보영상)</div>
+            <div class="tools">Kling 3.0 · Claude<br>+ Runway Gen-4 · CapCut · Pr / Ae · ElevenLabs</div>
+          </div>
+          <div class="trk-sess" style="background:rgba(255,71,19,0.06); flex:0; padding:18px 22px;">
+            <div style="font-size:32px; font-weight:900; color:var(--orange); letter-spacing:-0.04em; line-height:1;">6<span style="font-size:14px; margin-left:4px;">H</span></div>
+            <div style="font-size:11px; font-weight:700; color:var(--ink-3); letter-spacing:0.14em; text-transform:uppercase; margin-top:8px;">3교시 · 통합</div>
+          </div>
+        </div>
+
+        <div class="trk-col">
+          <div class="trk-head">
+            <div class="nm">Track 03</div>
+            <h4>이미지 제작 — 브랜드 정체성 유지</h4>
+            <div class="who">카탈로그팀 · SNS 기획팀</div>
+            <div class="tools">Midjourney · Kling<br>+ GPT-4o · Firefly · Ideogram · Freepik AI</div>
+          </div>
+          <div class="trk-sess" style="background:rgba(255,71,19,0.06); flex:0; padding:18px 22px;">
+            <div style="font-size:32px; font-weight:900; color:var(--orange); letter-spacing:-0.04em; line-height:1;">6<span style="font-size:14px; margin-left:4px;">H</span></div>
+            <div style="font-size:11px; font-weight:700; color:var(--ink-3); letter-spacing:0.14em; text-transform:uppercase; margin-top:8px;">3교시 · 통합</div>
+          </div>
+        </div>
+
+        <div class="trk-col">
+          <div class="trk-head">
+            <div class="nm">Track 04</div>
+            <h4>Claude 멀티 에이전트</h4>
+            <div class="who">웹 개발팀</div>
+            <div class="tools">Claude Code<br>+ codex · GitHub Copilot · Context7 MCP · Postman</div>
+          </div>
+          <div class="trk-sess" style="background:rgba(255,71,19,0.06); flex:0; padding:18px 22px;">
+            <div style="font-size:32px; font-weight:900; color:var(--orange); letter-spacing:-0.04em; line-height:1;">6<span style="font-size:14px; margin-left:4px;">H</span></div>
+            <div style="font-size:11px; font-weight:700; color:var(--ink-3); letter-spacing:0.14em; text-transform:uppercase; margin-top:8px;">3교시 · 통합</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot-logo"><span class="pre">(주)</span><span class="name"><span class="h">h</span>anmir</span></div>
+    <div class="foot-num">08 / 13</div>
+  </section>
+
+  <!-- ═════════════════════ 09 · 제안 2 detail ═════════════════════ -->
+  <section class="slide" data-label="제안 2 커리큘럼">
+    <div class="stage stage-pad">
+      <div class="head">
+        <div class="row">
+          <div class="eyebrow">Section 05 · 제안 2 · 커리큘럼</div>
+          <span class="meta">4 tracks × 3 sessions · 24 hours</span>
+        </div>
+        <div class="row">
+          <h2 class="slide-title">트랙별 3교시 구성</h2>
+        </div>
+      </div>
+
+      <div class="trk-grid">
+        <!-- Track 01 -->
+        <div class="trk-col">
+          <div class="trk-head">
+            <div class="nm">Track 01 · 6 H</div>
+            <h4>Claude × Figma 활용</h4>
+            <div class="who">웹 디자인 · 웹 퍼블 · 기획팀</div>
+          </div>
+          <div class="trk-sess">
+            <div class="ses">1교시 · 1–2H</div>
+            <ul>
+              <li>Claude 기초 활용 · 프롬프트 설계</li>
+              <li>기획서·IA 초안 자동 생성</li>
+              <li>ChatGPT vs Claude 실무 비교</li>
+            </ul>
+          </div>
+          <div class="trk-sess">
+            <div class="ses">2교시 · 3–4H</div>
+            <ul>
+              <li>Figma MCP 연동 · 기본 사용법</li>
+              <li>레이어·네이밍 · 오토레이아웃</li>
+              <li>컴포넌트 설계 명세 자동 생성</li>
+            </ul>
+          </div>
+          <div class="trk-sess">
+            <div class="ses">3교시 · 5–6H</div>
+            <ul>
+              <li>유저 분석 → IA 설계 with Claude</li>
+              <li>AI 피드백 기반 UI 개선 (V0.dev)</li>
+              <li>워크숍: 기획→시안 파이프라인</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Track 02 -->
+        <div class="trk-col">
+          <div class="trk-head">
+            <div class="nm">Track 02 · 6 H</div>
+            <h4>동영상 제작 (숏폼+홍보)</h4>
+            <div class="who">동영상팀 2개</div>
+          </div>
+          <div class="trk-sess">
+            <div class="ses">1교시 · 1–2H</div>
+            <ul>
+              <li>Kling 3.0 vs Seedance 2.0 비교</li>
+              <li>핵심 파라미터: 무브·모션·전환</li>
+              <li>Claude로 영상 콘티 스크립트</li>
+            </ul>
+          </div>
+          <div class="trk-sess">
+            <div class="ses">2교시 · 3–4H</div>
+            <ul>
+              <li>이미지 → 영상 확장 (Kling+Runway)</li>
+              <li>숏폼 파이프라인 · 9:16 · CapCut</li>
+              <li>일관성 유지 — 동일 캐릭터·제품</li>
+            </ul>
+          </div>
+          <div class="trk-sess">
+            <div class="ses">3교시 · 5–6H</div>
+            <ul>
+              <li>Ae·Pr / Blender 연계 워크플로우</li>
+              <li>AI 영상 후보정 (색·합성·자막)</li>
+              <li>워크숍: 홍보영상 1편 완성</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Track 03 -->
+        <div class="trk-col">
+          <div class="trk-head">
+            <div class="nm">Track 03 · 6 H</div>
+            <h4>이미지 제작 (브랜드 정체성)</h4>
+            <div class="who">카탈로그팀 · SNS 기획팀</div>
+          </div>
+          <div class="trk-sess">
+            <div class="ses">1교시 · 1–2H</div>
+            <ul>
+              <li>GPT-4o 덕테이프 — 제품+배경 합성</li>
+              <li>Midjourney --sref / --cref</li>
+              <li>브랜드 일관성 유지 전략</li>
+            </ul>
+          </div>
+          <div class="trk-sess">
+            <div class="ses">2교시 · 3–4H</div>
+            <ul>
+              <li>제품 이미지 1장 → 구도·배경 다변화</li>
+              <li>Firefly 상업용 고해상도 · 업스케일</li>
+              <li>사진→일러스트 / AI 아이콘 벡터화</li>
+            </ul>
+          </div>
+          <div class="trk-sess">
+            <div class="ses">3교시 · 5–6H</div>
+            <ul>
+              <li>Kling — 이미지 → GIF·숏폼</li>
+              <li>채널별 최적화 · 광고 소구점 진단</li>
+              <li>워크숍: 캠페인 소재 세트 완성</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Track 04 -->
+        <div class="trk-col">
+          <div class="trk-head">
+            <div class="nm">Track 04 · 6 H</div>
+            <h4>Claude 멀티 에이전트</h4>
+            <div class="who">웹 개발팀</div>
+          </div>
+          <div class="trk-sess">
+            <div class="ses">1교시 · 1–2H</div>
+            <ul>
+              <li>Claude Code 환경 설정·기본 사용</li>
+              <li>병렬 · 파이프라인 · 스페셜리스트</li>
+              <li>단일 vs 멀티 성능 비교 실습</li>
+            </ul>
+          </div>
+          <div class="trk-sess">
+            <div class="ses">2교시 · 3–4H</div>
+            <ul>
+              <li>병렬: 레거시 코드 분담 분석</li>
+              <li>파이프라인: pending → 재시도 자동화</li>
+              <li>스페셜리스트: DB·보안 전담</li>
+            </ul>
+          </div>
+          <div class="trk-sess">
+            <div class="ses">3교시 · 5–6H</div>
+            <ul>
+              <li>훅(Hook) · 저장 시 자동 품질 검사</li>
+              <li>Orchestrator 서브에이전트 구현</li>
+              <li>워크숍: 실제 코드베이스 적용</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot-logo"><span class="pre">(주)</span><span class="name"><span class="h">h</span>anmir</span></div>
+    <div class="foot-num">09 / 13</div>
+  </section>
+
+  <!-- ═════════════════════ 10 · 추천 ═════════════════════ -->
+  <section class="slide" data-label="추천 의견">
+    <div class="stage stage-pad">
+      <div class="head">
+        <div class="row">
+          <div class="eyebrow">Section 06 · 추천 의견</div>
+          <span class="meta">Our recommendation</span>
+        </div>
+        <div class="row">
+          <h2 class="slide-title">어느 안이 한미르에 더 맞을까</h2>
+        </div>
+      </div>
+      <div class="rule" style="margin-bottom: 48px;"></div>
+
+      <div class="rec-wrap">
+        <div class="rec-left">
+          <h3 class="big">
+            두 안의 갈림길은<br>
+            <span class="em">"같이 배울지,<br>따로 배울지".</span>
+          </h3>
+          <p>
+            <strong>제안 1(팀별 맞춤)</strong>은 산출물의 맞춤 깊이가 우선일 때 강합니다.
+            팀별 일정이 다 다르고, 각 팀의 실제 작업 위에서 시작·종료해야 적용이 일어나는 조직에 적합합니다.
+          </p>
+          <p>
+            <strong>제안 2(툴별 트랙)</strong>는 같은 툴을 쓰는 팀끼리 함께 배우는 시너지가 큽니다.
+            한미르처럼 디자인/퍼블/기획이 한 흐름으로 일하고, 영상 두 팀이 같은 파이프라인을 공유하는 구조와 잘 맞습니다.
+          </p>
+        </div>
+
+        <div class="rec-right">
+          <div class="badge">Recommended</div>
+          <h3>제안 2 — <span class="em">툴별 트랙</span></h3>
+          <p style="font-size:17px; color:var(--paper-2); font-weight:400; line-height:1.6; margin:0;">
+            한미르의 7개 팀 R&R을 분석한 결과, 요청 툴이 4개 트랙으로 자연스럽게 묶입니다.
+            전사 단일 일정으로 24H 완주가 가능하고, 트랙 내 팀 간 학습이 일어나며, 비용 효율도 가장 높습니다.
+          </p>
+          <ul class="why">
+            <li>요청 툴이 트랙으로 자연스럽게 클러스터링됨</li>
+            <li>4트랙 × 6H = 24H · 6일 일정과 정합</li>
+            <li>예산 1,000만원 + 정부지원금 활용 시 적용 용이</li>
+            <li>1안 대비 운영 부담 30~40% 절감</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-logo"><span class="pre">(주)</span><span class="name"><span class="h">h</span>anmir</span></div>
+    <div class="foot-num">10 / 13</div>
+  </section>
+
+  <!-- ═════════════════════ 11 · 운영 + 강사 ═════════════════════ -->
+  <section class="slide" data-label="운영 방식">
+    <div class="stage stage-pad">
+      <div class="head">
+        <div class="row">
+          <div class="eyebrow">Section 07 · 운영 방식 · 강사진</div>
+          <span class="meta">6 days · 4H/day · PM</span>
+        </div>
+        <div class="row">
+          <h2 class="slide-title">6일 일정 · 분야별 전문강사</h2>
+        </div>
+        <p class="lede">하루 4시간(오후) 운영 · 트랙별 1교시 단위로 분배합니다. 아래는 제안 2 기준 예시.</p>
+      </div>
+
+      <div class="ops-grid">
+        <div class="ops-cal">
+          <div class="cal-tbl">
+            <div class="ch"></div>
+            <div class="ch">Day 1</div>
+            <div class="ch">Day 2</div>
+            <div class="ch">Day 3</div>
+            <div class="ch">Day 4</div>
+            <div class="ch">Day 5</div>
+            <div class="ch">Day 6</div>
+
+            <div class="rh">PM 13:00<br>17:00</div>
+            <div class="cell"><span class="tg">T1</span>Claude × Figma<br>1–2교시</div>
+            <div class="cell"><span class="tg">T1</span>Claude × Figma<br>3교시 + 워크숍</div>
+            <div class="cell"><span class="tg">T2</span>동영상 제작<br>1–2교시</div>
+            <div class="cell"><span class="tg">T2</span>동영상 제작<br>3교시 + 워크숍</div>
+            <div class="cell"><span class="tg">T3</span>이미지 제작<br>1–2교시 + 3교시</div>
+            <div class="cell"><span class="tg">T4</span>Claude 멀티 에이전트<br>전 교시</div>
+          </div>
+          <p style="font-size:12px; color:var(--ink-3); font-weight:500; line-height:1.5; margin-top:14px;">
+            * Day 5는 이미지 트랙 압축 운영 / Day 6은 개발팀 전용. 일정은 한미르 운영 사정에 맞춰 재배치 가능합니다.
+          </p>
+        </div>
+
+        <div>
+          <div style="font-size:13px; font-weight:900; letter-spacing:0.18em; text-transform:uppercase; color:var(--orange); margin-bottom:14px;">강사진 (예정)</div>
+          <div class="ops-inst">
+            <div class="inst-row">
+              <span class="nm">김 유 정<small>Claude Code · 멀티 에이전트 · MCP 실무</small></span>
+              <span class="role">T4</span>
+            </div>
+            <div class="inst-row">
+              <span class="nm">김 송 아<small>Claude Code · 개발 워크플로우</small></span>
+              <span class="role">T4</span>
+            </div>
+            <div class="inst-row">
+              <span class="nm">이 채 린<small>Figma MCP · Claude · UI 자동화</small></span>
+              <span class="role">T1</span>
+            </div>
+            <div class="inst-row">
+              <span class="nm">박 정 우<small>Kling · Runway · Ae 후보정</small></span>
+              <span class="role">T2</span>
+            </div>
+            <div class="inst-row">
+              <span class="nm">서 다 인<small>Midjourney · 브랜드 일관성 운영</small></span>
+              <span class="role">T3</span>
+            </div>
+            <div class="inst-row">
+              <span class="nm">정 하 람<small>SNS · CTR · 카피라이팅 with AI</small></span>
+              <span class="role">T3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot-logo"><span class="pre">(주)</span><span class="name"><span class="h">h</span>anmir</span></div>
+    <div class="foot-num">11 / 13</div>
+  </section>
+
+  <!-- ═════════════════════ 12 · 비용 ═════════════════════ -->
+  <section class="slide" data-label="투자 비용">
+    <div class="stage stage-pad">
+      <div class="head">
+        <div class="row">
+          <div class="eyebrow">Section 08 · 투자 비용</div>
+          <span class="meta">VAT 별도 · KRW · 정부지원금 활용</span>
+        </div>
+        <div class="row">
+          <h2 class="slide-title">투자 비용 · 정부지원금 구조</h2>
+        </div>
+      </div>
+
+      <div class="cost-wrap">
+        <div class="cost-summary">
+          <div>
+            <div class="lbl">Total · 제안 2 기준</div>
+            <div class="cost-total">
+              <div class="amt">1,260<span class="unit">만원</span></div>
+              <div class="vat">VAT 별도 · KRW 12,600,000</div>
+            </div>
+            <div class="gov-box">
+              <div class="h">정부지원금 활용 시</div>
+              <div class="t">자부담 약 <span style="color:var(--orange);">378만원</span> · 약 70% 환급<br>(K-디지털 트레이닝 / 사업주 직업능력개발 환급 과정 기준)</div>
+            </div>
+          </div>
+          <div class="cost-note">
+            <span>제안 1(팀별 28H) 선택 시 합계 1,470만원</span>
+            <span>2회차 이상 운영 시 강사료 15% 할인 적용</span>
+            <span>현장 사전 진단 비용 포함</span>
+          </div>
+        </div>
+
+        <div class="cost-table">
+          <div class="cost-row head">
+            <span>No.</span>
+            <span>항목</span>
+            <span>내용</span>
+            <span style="text-align:right;">수량</span>
+            <span style="text-align:right;">금액 (KRW)</span>
+          </div>
+          <div class="cost-row">
+            <span class="n">01</span>
+            <span class="t">설계 · 진단<small>현장 인터뷰 · 커리큘럼 맞춤화</small></span>
+            <span class="desc">사전 2주 진단 + 트랙 커스터마이즈</span>
+            <span class="qty">1식</span>
+            <span class="amt">1,500,000</span>
+          </div>
+          <div class="cost-row">
+            <span class="n">02</span>
+            <span class="t">강사료 · 운영<small>4 트랙 × 6H</small></span>
+            <span class="desc">트랙별 전문강사 + 보조 운영</span>
+            <span class="qty">24 H</span>
+            <span class="amt">7,800,000</span>
+          </div>
+          <div class="cost-row">
+            <span class="n">03</span>
+            <span class="t">실습 자료 · 플랫폼<small>워크북 · LMS · 회고 도구</small></span>
+            <span class="desc">디지털 워크북 + 학습관리 환경</span>
+            <span class="qty">1식</span>
+            <span class="amt">1,200,000</span>
+          </div>
+          <div class="cost-row">
+            <span class="n">04</span>
+            <span class="t">유료 툴 라이선스<small>Midjourney · Kling · Claude</small></span>
+            <span class="desc">교육 기간 중 강사 계정 공유 운영</span>
+            <span class="qty">6일</span>
+            <span class="amt">900,000</span>
+          </div>
+          <div class="cost-row">
+            <span class="n">05</span>
+            <span class="t">사후 코칭 · 리포트<small>1개월 후속 코칭 1회 포함</small></span>
+            <span class="desc">팀별 적용 코칭 + 성과 리포트</span>
+            <span class="qty">1식</span>
+            <span class="amt">1,200,000</span>
+          </div>
+          <div class="cost-row total">
+            <span class="n"></span>
+            <span class="t">합계 · 제안 2 (VAT 별도)</span>
+            <span class="desc"></span>
+            <span class="qty"></span>
+            <span class="amt">12,600,000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot-logo"><span class="pre">(주)</span><span class="name"><span class="h">h</span>anmir</span></div>
+    <div class="foot-num">12 / 13</div>
+  </section>
+
+  <!-- ═════════════════════ 13 · End ═════════════════════ -->
+  <section class="slide dark" data-label="End">
+    <div class="stage end-stage">
+      <div class="end-top">
+        <div class="end-thanks">Thank you</div>
+        <div class="lockup">
+          <span class="ko">(주) 한미르</span>
+          <span class="name"><span class="h">h</span>anmir</span>
+        </div>
+      </div>
+
+      <div class="end-mid">
+        <h1 class="end-h1">
+          툴을 가르치지 않습니다.<br>
+          <span class="em">한미르의 일을 함께 짭니다.</span>
+        </h1>
+        <p class="end-sub">
+          본 제안에 대한 검토 의견 주시면, 다음 주 월요일까지 한미르 운영 일정과 강사 매칭을 확정해 회신드리겠습니다.<br>
+          정부지원금 적용 절차는 사전 진단 단계부터 동시 진행 가능합니다.
+        </p>
+      </div>
+
+      <div class="end-bottom">
+        <div class="col">
+          <span class="label">Lead</span>
+          <span class="val">교육 운영 PM</span>
+        </div>
+        <div class="col">
+          <span class="label">Client</span>
+          <span class="val">(주)한미르 · 김수진 본부장</span>
+        </div>
+        <div class="col">
+          <span class="label">Decision by</span>
+          <span class="val">5월 4주차 (월)</span>
+        </div>
+        <div class="col">
+          <span class="label">Recommended</span>
+          <span class="val orange">제안 2 · 툴별 트랙</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</deck-stage>
+
+<div id="tweaks-root"></div>
+
+<script src="deck-stage.js"></script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks-app.jsx"></script>
+
+</body>
+</html>
