@@ -1,0 +1,239 @@
+/* ============================================================
+   Hanmir Proposal — strict 3-color system
+   Only: #000000 (black) · #FFFFFF (white) · #FF4713 (Hanmir orange)
+   No gradients beyond solid orange. No glass tints. Editorial.
+   ============================================================ */
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('fonts/PretendardVariable.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+:root {
+  /* ── Strict palette ───────────────────────────────────── */
+  --black: #000000;
+  --white: #FFFFFF;
+  --orange: #FF4713;
+
+  /* Greys are pure (no warm/cool tint) — derived from black */
+  --ink-1: #000000;            /* primary on white */
+  --ink-2: rgba(0,0,0,0.62);
+  --ink-3: rgba(0,0,0,0.42);
+  --ink-4: rgba(0,0,0,0.22);
+  --hair:  rgba(0,0,0,0.12);   /* dividers on white */
+
+  --paper-1: #FFFFFF;          /* primary on black */
+  --paper-2: rgba(255,255,255,0.66);
+  --paper-3: rgba(255,255,255,0.42);
+  --paper-4: rgba(255,255,255,0.22);
+  --hair-d: rgba(255,255,255,0.15);
+
+  /* ── Type ─────────────────────────────────────────────── */
+  --font-sans: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace;
+
+  --fs-display: 132px;
+  --fs-h1: 88px;
+  --fs-h2: 64px;
+  --fs-h3: 40px;
+  --fs-h4: 28px;
+  --fs-h5: 22px;
+  --fs-body: 19px;
+  --fs-body-sm: 16px;
+  --fs-caption: 14px;
+  --fs-label: 14px;
+  --fs-mini: 12px;
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+  --fw-black: 900;
+
+  --tracking-tight: -0.035em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.06em;
+  --tracking-wider: 0.10em;
+  --tracking-widest: 0.18em;
+
+  --lh-tight: 1.04;
+  --lh-snug: 1.18;
+  --lh-normal: 1.50;
+  --lh-relaxed: 1.65;
+
+  /* ── Spacing (4-px grid) ──────────────────────────────── */
+  --s-1: 4px;  --s-2: 8px;   --s-3: 12px; --s-4: 16px;
+  --s-5: 20px; --s-6: 24px;  --s-7: 28px; --s-8: 32px;
+  --s-10: 40px; --s-12: 48px; --s-16: 64px; --s-20: 80px;
+  --s-24: 96px; --s-32: 128px;
+
+  /* ── Radii — kept small, mostly square/sharp ───────────── */
+  --r-xs: 0px;
+  --r-sm: 2px;
+  --r-md: 4px;
+  --r-lg: 6px;
+  --r-full: 999px;
+
+  /* ── Motion ───────────────────────────────────────────── */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 200ms;
+  --dur-med: 600ms;
+  --dur-slow: 800ms;
+}
+
+/* ── Base ────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  font-family: var(--font-sans);
+  color: var(--ink-1);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Slide common ────────────────────────────────────────── */
+.slide {
+  position: relative;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--white);
+  color: var(--ink-1);
+  font-family: var(--font-sans);
+}
+.slide.dark {
+  background: var(--black);
+  color: var(--paper-1);
+}
+
+.slide .stage {
+  position: relative;
+  z-index: 1;
+  width: 100%; height: 100%;
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-size: var(--fs-label);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--orange);
+  font-feature-settings: "ss01";
+}
+
+/* Slide title */
+.slide-title {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-black);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--lh-tight);
+  margin: 0;
+  color: inherit;
+}
+
+.slide-subtitle {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  color: var(--ink-3);
+  margin: 0;
+  line-height: var(--lh-snug);
+}
+.slide.dark .slide-subtitle { color: var(--paper-3); }
+
+/* Dividers */
+.rule {
+  height: 2px;
+  background: var(--ink-1);
+  width: 100%;
+}
+.slide.dark .rule { background: var(--paper-1); }
+.rule.thin {
+  height: 1px;
+  background: var(--hair);
+}
+.slide.dark .rule.thin { background: var(--hair-d); }
+.rule.accent {
+  width: 64px;
+  height: 6px;
+  background: var(--orange);
+  border-radius: 0;
+}
+
+/* Tag pill */
+.tag {
+  display: inline-flex; align-items: center;
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 0;
+  background: var(--black);
+  color: var(--white);
+  font-size: var(--fs-mini);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+.tag.orange { background: var(--orange); color: var(--white); }
+.tag.outline { background: transparent; color: var(--ink-1); border: 1.5px solid var(--ink-1); }
+.slide.dark .tag.outline { color: var(--paper-1); border-color: var(--paper-1); }
+
+/* Logo lockup — Hanmir typographic stand-in */
+.lockup {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  background: var(--black);
+  color: var(--white);
+  padding: 14px 18px;
+}
+.lockup .ko { font-size: 14px; font-weight: var(--fw-medium); letter-spacing: 0.02em; }
+.lockup .name {
+  font-size: 28px; font-weight: var(--fw-black);
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+.lockup .name .h { color: var(--orange); }
+
+/* Lower-thirds */
+.foot-logo {
+  position: absolute; bottom: 56px; left: 80px;
+  display: inline-flex; align-items: baseline; gap: 8px;
+  z-index: 2;
+}
+.foot-logo .pre { font-size: 11px; font-weight: var(--fw-medium); color: var(--ink-3); letter-spacing: 0.02em; }
+.foot-logo .name { font-size: 22px; font-weight: var(--fw-black); letter-spacing: -0.05em; color: var(--ink-1); }
+.foot-logo .name .h { color: var(--orange); }
+.slide.dark .foot-logo .pre { color: var(--paper-3); }
+.slide.dark .foot-logo .name { color: var(--white); }
+
+.foot-num {
+  position: absolute; bottom: 60px; right: 80px;
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  font-feature-settings: "tnum";
+  z-index: 2;
+}
+.slide.dark .foot-num { color: var(--paper-3); }
+
+.foot-meta {
+  position: absolute; bottom: 60px;
+  left: 50%; transform: translateX(-50%);
+  font-size: 11px; font-weight: var(--fw-bold);
+  letter-spacing: 0.20em; text-transform: uppercase;
+  color: var(--ink-4);
+  z-index: 2;
+}
+.slide.dark .foot-meta { color: var(--paper-4); }
+
+/* Utility accents */
+.accent { color: var(--orange); }
+.muted { color: var(--ink-3); }
+.slide.dark .muted { color: var(--paper-3); }
